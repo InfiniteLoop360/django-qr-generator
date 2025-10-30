@@ -1,0 +1,57 @@
+/* =======================
+   Custom QR Generator CSS
+   ======================= */
+
+/* General Styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Card/Form Container */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #4b6ef5;
+    border-color: #4b6ef5;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #3758e0;
+    border-color: #3758e0;
+}
+
+/* Success and Error Messages */
+.alert {
+    border-radius: 8px;
+}
+
+/* QR Image */
+img {
+    max-width: 280px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+/* Footer note */
+small {
+    color: #666;
+    font-size: 0.85rem;
+}

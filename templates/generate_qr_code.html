@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Generate QR Code for Digital Restaurant Menu{% endblock %}
+
+{% block content %}
+<div class="mx-auto" style="max-width: 600px;">
+    <!-- ✅ Display Django messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- ✅ Display form errors -->
+    {% if form.errors %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Please fix the errors below.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+
+    <div class="card shadow-sm p-4">
+        <h4 class="mb-3 text-center">Generate QR Code</h4>
+        <form action="{% url 'generate_qr_code' %}" method="POST" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-grid mt-3">
+                <button type="submit" class="btn btn-primary">Generate QR Code</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

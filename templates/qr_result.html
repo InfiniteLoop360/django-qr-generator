@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}QR Code Result{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <!-- ✅ Success animation -->
+    <div class="checkmark-container mb-4">
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark__check" fill="none" d="M14 27l7 7 17-17"/>
+        </svg>
+    </div>
+
+    <h2 class="fw-semibold mb-4">{{ res_name }}</h2>
+
+    <!-- ✅ QR Code (fade-in animation) -->
+    <img src="{{ qr_url }}" 
+         alt="QR Code" 
+         class="qr-image border border-dark rounded shadow-sm mb-4"
+         style="max-width:300px; opacity: 0; transform: translateY(10px); transition: all 0.8s ease-out;">
+
+    <!-- ✅ Buttons (animated later) -->
+    <div class="action-buttons d-flex flex-column align-items-center gap-2" style="opacity: 0; transform: translateY(10px); transition: all 0.8s ease-out;">
+        <a href="{{ qr_url }}" download="{{ file_name }}" class="btn btn-primary px-4">
+            ⬇️ Download QR Code
+        </a>
+
+        <a href="{% url 'generate_qr_code' %}" class="btn btn-secondary px-4">
+            🔄 Generate Another
+        </a>
+
+        <small class="text-muted mt-3">
+            Thank you for using our QR Code Generator Tool!
+        </small>
+    </div>
+</div>
+
+<!-- ✅ Checkmark + Animation Styles -->
+<style>
+    .checkmark-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .checkmark {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: block;
+        stroke-width: 2;
+        stroke: #4bb543;
+        stroke-miterlimit: 10;
+        box-shadow: 0 0 0 2px #4bb54333;
+        animation: scale-up 0.4s ease-in-out;
+    }
+
+    .checkmark__circle {
+        stroke-dasharray: 166;
+        stroke-dashoffset: 166;
+        stroke-width: 2;
+        stroke-miterlimit: 10;
+        stroke: #4bb543;
+        fill: none;
+        animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .checkmark__check {
+        transform-origin: 50% 50%;
+        stroke-dasharray: 48;
+        stroke-dashoffset: 48;
+        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+    }
+
+    @keyframes stroke {
+        100% {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    @keyframes scale-up {
+        0% {
+            transform: scale(0.9);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+</style>
+
+<!-- ✅ JS: Sequential animations -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkmark = document.querySelector('.checkmark');
+        const qrImage = document.querySelector('.qr-image');
+        const actionButtons = document.querySelector('.action-buttons');
+
+        // Step 1: fade in checkmark
+        checkmark.style.opacity = 0;
+        setTimeout(() => {
+            checkmark.style.opacity = 1;
+        }, 100);
+
+        // Step 2: fade in QR after checkmark animation
+        setTimeout(() => {
+            qrImage.style.opacity = 1;
+            qrImage.style.transform = 'translateY(0)';
+        }, 1000);
+
+        // Step 3: fade in buttons after QR appears
+        setTimeout(() => {
+            actionButtons.style.opacity = 1;
+            actionButtons.style.transform = 'translateY(0)';
+        }, 1800);
+    });
+</script>
+{% endblock %}
