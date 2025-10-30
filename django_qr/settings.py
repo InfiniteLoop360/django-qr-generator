@@ -17,19 +17,24 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+# ============================================================
+# 🚨 SECURITY SETTINGS
+# ============================================================
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-5cumpk=+yf0_jr*3&@v!zoo_pfumiowww%pbih$gw69vi&7rkz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# ✅ Tip: Render will override this using environment variables
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+# ✅ Allow all hosts temporarily (Render will use its own host URL)
+ALLOWED_HOSTS = ['*']
 
 
-# Application definition
+# ============================================================
+# 🚀 APPLICATION DEFINITION
+# ============================================================
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,11 +43,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # ✅ Your Django QR app
     'django_qr',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    # ✅ Added Whitenoise middleware (MUST be right after SecurityMiddleware)
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -56,7 +67,10 @@ ROOT_URLCONF = 'django_qr.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+
+        # ✅ Template directory added
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,8 +86,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'django_qr.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+# ============================================================
+# 🗄️ DATABASE
+# ============================================================
 
 DATABASES = {
     'default': {
@@ -83,46 +98,54 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
+# ============================================================
+# 🔐 PASSWORD VALIDATION
+# ============================================================
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
+# ============================================================
+# 🌍 INTERNATIONALIZATION
+# ============================================================
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
+# ============================================================
+# 🧾 STATIC & MEDIA FILES (for CSS, JS, images, etc.)
+# ============================================================
 
-STATIC_URL = 'static/'
+# ✅ URL for static files
+STATIC_URL = '/static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+# ✅ Folder where static files are collected for production
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# ✅ Folder for extra static assets during development
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
+# ✅ Whitenoise settings for production (serves static files efficiently)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+# ✅ Media settings (user-uploaded files, if any)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+# ============================================================
+# 🆔 DEFAULT PRIMARY KEY FIELD TYPE
+# ============================================================
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
