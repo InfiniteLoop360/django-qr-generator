@@ -4,11 +4,6 @@ This is a simple web application built with Django that allows restaurants to qu
 
 Users enter their restaurant's name and a URL to their online menu. The application then generates a unique QR code image that links directly to that URL, ready for download.
 
-## 🚀 Live Demo
-
-*(Replace this with your live URL once deployed)*
-[https://your-project-name.onrender.com](https://your-project-name.onrender.com)
-
 ## 📸 Screenshots
 
 *(Replace these with links to your own screenshots)*
