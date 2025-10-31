@@ -1,8 +1,13 @@
-# Django Restaurant Menu QR Code Generator 🍽️
+# Django URL-to-QR Code Generator 🔗
 
-This is a simple web application built with Django that allows restaurants to quickly generate and download a custom QR code for their digital menu.
+This is a simple web application built with Django that allows users to quickly generate and download a custom QR code for any URL.
 
-Users enter their restaurant's name and a URL to their online menu. The application then generates a unique QR code image that links directly to that URL, ready for download.
+Users enter a title and a URL, and the application generates a unique QR code image that links directly to that URL, ready for download.
+
+## 🚀 Live Demo
+
+*(Replace this with your live URL once deployed)*
+[https://your-project-name.onrender.com](https://your-project-name.onrender.com)
 
 ## 📸 Screenshots
 
@@ -26,10 +31,10 @@ Users enter their restaurant's name and a URL to their online menu. The applicat
 
 1.  A user visits the home page (`/`), which is rendered by the `generate_qr_code` view (`views.py`) using the `generate_qr_code.html` template.
 2.  The template displays the `QRCodeForm` (`forms.py`).
-3.  The user fills in the restaurant name and menu URL and submits the form.
+3.  The user fills in the **title and URL** and submits the form.
 4.  The `generate_qr_code` view receives the `POST` request and validates the form data.
 5.  If valid, the view calls the `create_qr_code` helper function (`utils.py`).
-6.  This utility function uses the `qrcode` library to generate an image and saves it to the `/media` directory with a unique filename (e.g., `my_restaurant_a1b2c3d4_menu.png`).
+6.  This utility function uses the `qrcode` library to generate an image and saves it to the `/media` directory with a unique filename (e.g., **`my_title_a1b2c3d4_qr.png`**).
 7.  The view then renders the `qr_result.html` template, passing in the URL and filename of the newly created image.
 8.  The user sees the success animation and the QR code, with buttons to "Download" or "Generate Another."
 
@@ -54,7 +59,7 @@ Follow these instructions to get a copy of the project running on your local mac
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/django-qr-code.git](https://github.com/your-username/django-qr-code.git)
+    git clone https://github.com/InfiniteLoop360/django-qr-generator.git
     cd django-qr-code
     ```
 
