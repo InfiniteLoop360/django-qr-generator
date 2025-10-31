@@ -59,7 +59,7 @@ Follow these instructions to get a copy of the project running on your local mac
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/django-qr-code.git](https://github.com/your-username/django-qr-code.git)
+    git clone https://github.com/InfiniteLoop360/django-qr-generator.git
     cd django-qr-code
     ```
 
