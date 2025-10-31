@@ -11,18 +11,18 @@ def generate_qr_code(request):
     if request.method == 'POST':
         form = QRCodeForm(request.POST)
         if form.is_valid():
-            res_name = form.cleaned_data['restaurant_name']
+            title = form.cleaned_data['title']
             url = form.cleaned_data['url']
 
             # ✅ Using helper function (cleaner code)
-            file_name = create_qr_code(url, res_name)
+            file_name = create_qr_code(url, title)
             qr_url = '/media/' + file_name
 
             # ✅ Add a success message
             messages.success(request, "QR Code generated successfully!")
 
             context = {
-                'res_name': res_name,
+                'title': title,
                 'qr_url': qr_url,
                 'file_name': file_name,
             }
