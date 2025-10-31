@@ -112,3 +112,33 @@ This project is configured for deployment on Render. The `media` folder (where Q
 6.  Deploy! Your application will be live, and generated QR codes will be saved to the persistent disk.
 
 ## 📁 Project Structure
+
+QR-CODE-DJANGO/
+├── django_qr/             # Main Django project configuration folder
+│   ├── __init__.py
+│   ├── asgi.py            # ASGI config for async servers
+│   ├── settings.py        # Project settings (Database, Static, Media)
+│   ├── urls.py            # Main URL routing file
+│   ├── forms.py           # Contains the QRCodeForm
+│   ├── utils.py           # Helper function to create the QR image
+│   ├── views.py           # Contains the core view (generate_qr_code)
+│   └── wsgi.py            # WSGI config for (gunicorn)
+│
+├── media/                 # (Gitignored) Where generated QR codes are saved
+│
+├── static/                # Static files (CSS, JS, images)
+│   └── css/
+│       └── style.css      # Custom application styles
+│
+├── templates/             # HTML templates
+│   ├── base.html          # Base template with Bootstrap & dark mode
+│   ├── generate_qr_code.html # Home page with the input form
+│   └── qr_result.html     # Result page with QR image and download
+│
+├── venv/                  # (Gitignored) Python virtual environment
+├── .gitignore             # Tells Git which files to ignore
+├── db.sqlite3             # Development database file
+├── manage.py              # Django's command-line utility
+├── Procfile               # Declares 'gunicorn' process for deployment
+├── requirements.txt       # Python package dependencies
+└── runtime.txt            # Specifies Python version for deployment
