@@ -112,7 +112,7 @@ This project is configured for deployment on Render. The `media` folder (where Q
 6.  Deploy! Your application will be live, and generated QR codes will be saved to the persistent disk.
 
 ## 📁 Project Structure
-
+```
 QR-CODE-DJANGO/
 ├── django_qr/             # Main Django project configuration folder
 │   ├── __init__.py
@@ -142,3 +142,4 @@ QR-CODE-DJANGO/
 ├── Procfile               # Declares 'gunicorn' process for deployment
 ├── requirements.txt       # Python package dependencies
 └── runtime.txt            # Specifies Python version for deployment
+```
