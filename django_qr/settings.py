@@ -22,23 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ============================================================
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# Render will set this from your Environment Variables
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key-for-local-dev')
+SECRET_KEY = 'django-insecure-5cumpk=+yf0_jr*3&@v!zoo_pfumiowww%pbih$gw69vi&7rkz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# This reads the DEBUG value from Render's environment, defaults to False
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+# ✅ Tip: Render will override this using environment variables
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-# ✅ CORRECTED ALLOWED_HOSTS
-# This automatically uses your Render URL in production
-# and '127.0.0.1' for local development.
-ALLOWED_HOSTS = []
-RENDER_EXTERNAL_HOSTNAME = os.getenv('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-else:
-    # Allow localhost for development if RENDER_EXTERNAL_HOSTNAME is not set
-    ALLOWED_HOSTS.append('127.0.0.1')
+# ✅ Allow all hosts temporarily (Render will use its own host URL)
+ALLOWED_HOSTS = ['*']
 
 
 # ============================================================
@@ -53,14 +44,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # ✅ CRITICAL FIX: Use your app name 'generator', NOT the project 'django_qr'
-    'generator',
+    # ✅ Your Django QR app
+    'django_qr',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
-    # ✅ Whitenoise middleware (Correctly placed)
+    # ✅ Added Whitenoise middleware (MUST be right after SecurityMiddleware)
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -76,10 +67,10 @@ ROOT_URLCONF = 'django_qr.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        
-        # ✅ Correct template directory
+
+        # ✅ Template directory added
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -98,7 +89,6 @@ WSGI_APPLICATION = 'django_qr.wsgi.application'
 # ============================================================
 # 🗄️ DATABASE
 # ============================================================
-# Render will automatically configure this using the DATABASE_URL env variable
 
 DATABASES = {
     'default': {
@@ -134,26 +124,22 @@ USE_TZ = True
 # 🧾 STATIC & MEDIA FILES (for CSS, JS, images, etc.)
 # ============================================================
 
-# ✅ URL for static files (CSS, JavaScript)
+# ✅ URL for static files
 STATIC_URL = '/static/'
 
 # ✅ Folder where static files are collected for production
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# ✅ This line was removed as it pointed to a non-existent 'static' folder
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static'),
-# ]
+# ✅ Folder for extra static assets during development
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
-# ✅ Whitenoise settings for production
+# ✅ Whitenoise settings for production (serves static files efficiently)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-# ⚠️ IMPORTANT ⚠️
-# These settings will NOT work on Render for your QR codes.
-# Render has an ephemeral (temporary) filesystem.
-# Your generated QR codes will be DELETED.
-# You MUST use a service like Amazon S3 or Cloudinary for file storage.
+# ✅ Media settings (user-uploaded files, if any)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
