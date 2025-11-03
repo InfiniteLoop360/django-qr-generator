@@ -14,7 +14,9 @@ Users enter a title and a URL, and the application generates a unique QR code im
 *(Replace these with links to your own screenshots)*
 
 | Form Page | Result Page |
-| :---: | :---: |
+
+| <img width="1563" height="470" alt="ui_demo" src="https://github.com/user-attachments/assets/abc9c5ed-5652-43ca-aaaf-11c62072fa73" /> | <img width="1535" height="827" alt="result_page" src="https://github.com/user-attachments/assets/0c86b880-c268-47ae-83d8-99ce3e24bf52" />
+
 | ![Screenshot of the QR generator form](https/your-image-host.com/form.png) | ![Screenshot of the QR result page](https/your-image-host.com/result.png) |
 
 ## ✨ Features
