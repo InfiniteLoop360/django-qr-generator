@@ -96,23 +96,6 @@ Follow these instructions to get a copy of the project running on your local mac
 6.  **Open the application:**
     Open your web browser and navigate to `http://127.0.0.1:8000/`.
 
-## ☁️ Deployment Guide (Render)
-
-This project is configured for deployment on Render. The `media` folder (where QR codes are saved) is in `.gitignore`, so you must use a **Persistent Disk** on Render to store user-uploaded files.
-
-1.  Push your code to a GitHub repository.
-2.  On Render, create a new **"Web Service"** and connect it to your repository.
-3.  Set the following properties:
-    * **Runtime:** `Python 3` (Render will use the `runtime.txt` file).
-    * **Build Command:** `pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate`
-    * **Start Command:** `gunicorn django_qr.wsgi`
-4.  Go to the **"Disks"** section for your new service.
-5.  Click **"Add Disk"** and configure it:
-    * **Name:** `media`
-    * **Mount Path:** `/app/media` (This *must* match the `MEDIA_ROOT` setting)
-    * **Size:** 1 GB (or as needed)
-6.  Deploy! Your application will be live, and generated QR codes will be saved to the persistent disk.
-
 ## 📁 Project Structure
 ```
 QR-CODE-DJANGO/
