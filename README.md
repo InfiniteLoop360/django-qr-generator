@@ -13,7 +13,7 @@ Users enter a title and a URL, and the application generates a unique QR code im
 
 Screenshot of the QR generator form
 
-| <img width="1563" height="470" alt="ui_demo" src="https://github.com/user-attachments/assets/abc9c5ed-5652-43ca-aaaf-11c62072fa73" /> 
+ <img width="1563" height="470" alt="ui_demo" src="https://github.com/user-attachments/assets/abc9c5ed-5652-43ca-aaaf-11c62072fa73" /> 
 
  Screenshot of the QR result page
  
