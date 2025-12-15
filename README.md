@@ -1,145 +1,132 @@
-# Django URL-to-QR Code Generator 🔗
+# Secure Data Transmission System (SDTS) - Defense Grade
 
-This is a simple web application built with Django that allows users to quickly generate and download a custom QR code for any URL.
+> **Status:** Prototype / Deployed
+> **Security Level:** AES-128 Encryption + HMAC-SHA256 Integrity Check
+> **Classification:** CONFIDENTIAL // NOFORN
 
-Users enter a title and a URL, and the application generates a unique QR code image that links directly to that URL, ready for download.
+## 🛡️ Project Overview
+The **Secure Data Transmission System (SDTS)** is a specialized secure communication tool designed for **defense and intelligence operations**. Unlike standard QR code generators, this system prioritizes the **CIA Triad** (Confidentiality, Integrity, Availability) to ensure sensitive data cannot be intercepted, read, or tampered with during transmission.
 
-## 🚀 Live Demo
+This tool allows officers to encrypt mission-critical intelligence into a QR code, which can only be decrypted by authorized personnel possessing the specific decryption key. It includes military-grade tamper detection to prevent "Man-in-the-Middle" attacks.
 
-*(Replace this with your live URL once deployed)*
-[https://your-project-name.onrender.com](https://your-project-name.onrender.com)
+## 🚀 Key Features
 
-## 📸 Screenshots
+### 1. Military-Grade Confidentiality (AES-128)
+* Uses **AES-128 (Fernet)** symmetric encryption to lock raw data.
+* Data is completely unreadable (ciphertext) to any standard QR scanner.
+* **Key Derivation:** Uses **PBKDF2** (Password-Based Key Derivation Function 2) with 100,000 iterations to derive cryptographically strong keys from user passwords.
 
-*(Replace these with links to your own screenshots)*
+### 2. Tamper-Proofing (HMAC Integrity Check)
+* Implements **HMAC-SHA256** digital signatures.
+* Before encryption, the system generates a cryptographic "fingerprint" of the message.
+* **Defense Mechanism:** If an enemy modifies the QR code image or the ciphertext string by even **one byte**, the system detects the signature mismatch and immediately rejects the decryption with a **SECURITY ALERT**.
 
-| Form Page | Result Page |
-| :---: | :---: |
-| ![Screenshot of the QR generator form](https/your-image-host.com/form.png) | ![Screenshot of the QR result page](https/your-image-host.com/result.png) |
+### 3. Classified Reporting
+* Auto-generates professional **"TOP SECRET" PDF Mission Reports**.
+* Includes timestamps, unique Mission IDs, and official watermarks for physical dispatch.
 
-## ✨ Features
+### 4. Accountability & Forensics
+* **Audit Logging:** Every encryption and decryption attempt is logged in a secure `security_audit.log` file.
+* Tracks **IP Addresses**, **Timestamps**, and **Status** (Success/Failure/Tampering) for post-mission analysis.
 
-* **Simple & Clean UI:** An easy-to-use form built with Bootstrap 5.
-* **Instant QR Code Generation:** Creates a QR code from any valid URL.
-* **Downloadable Image:** Allows users to download the generated QR code as a `.png` file.
-* **🎨 Light/Dark Mode:** Includes a theme toggler in the navbar that saves the user's preference in `localStorage`.
-* **Smooth Animations:** Features a success checkmark and fade-in animations on the result page for a better user experience.
-* **Form Validation:** Ensures a valid URL is entered before attempting to generate a code.
-* **Deployment Ready:** Pre-configured with `gunicorn`, `whitenoise`, and a `Procfile` for easy hosting on platforms like Render or Heroku.
+### 5. Offline-Ready Tactical UI
+* The interface is built with **embedded CSS**, ensuring the tool looks modern and functions perfectly even in **air-gapped environments** (no internet connection).
 
-## ⚙️ How It Works
+---
 
-1.  A user visits the home page (`/`), which is rendered by the `generate_qr_code` view (`views.py`) using the `generate_qr_code.html` template.
-2.  The template displays the `QRCodeForm` (`forms.py`).
-3.  The user fills in the **title and URL** and submits the form.
-4.  The `generate_qr_code` view receives the `POST` request and validates the form data.
-5.  If valid, the view calls the `create_qr_code` helper function (`utils.py`).
-6.  This utility function uses the `qrcode` library to generate an image and saves it to the `/media` directory with a unique filename (e.g., **`my_title_a1b2c3d4_qr.png`**).
-7.  The view then renders the `qr_result.html` template, passing in the URL and filename of the newly created image.
-8.  The user sees the success animation and the QR code, with buttons to "Download" or "Generate Another."
+## 🛠️ Technology Stack
 
-## 🛠️ Tech Stack
+* **Framework:** Django 5.0 (Python)
+* **Cryptography:** `cryptography` (Fernet, HAZMAT primitives)
+* **Computer Vision:** `opencv-python` (For reading QR codes from uploaded images)
+* **Document Generation:** `reportlab` (For PDF Report generation)
+* **QR Processing:** `qrcode[pil]`, `numpy`
+* **Frontend:** HTML5, CSS3 (Custom Dark/Light Mode, Offline-Ready)
 
-* **Backend:** Django
-* **Frontend:** HTML5, Bootstrap 5, JavaScript (for theme toggle & animations)
-* **QR Generation:** `qrcode` (Python library)
-* **Deployment:** Gunicorn (WSGI Server), Whitenoise (Static File Serving)
-* **Database:** SQLite (default for development)
+---
 
-## 📦 Getting Started (Local Setup)
-
-Follow these instructions to get a copy of the project running on your local machine.
+## ⚙️ Installation & Setup
 
 ### Prerequisites
+* Python 3.10 or higher
+* pip (Python Package Installer)
 
-* Python 3.10+
-* Pip (Python package installer)
+### Step 1: Clone the Repository
+```bash
+git clone [https://github.com/yourusername/secure-qr-system.git](https://github.com/yourusername/secure-qr-system.git)
+cd secure-qr-system
+```
+### Step 2: Create a Virtual Environment
+It is recommended to use a virtual environment to manage dependencies.
+```bash
+# Windows
+python -m venv venv
+venv\Scripts\activate
 
-### Installation
+# Mac/Linux
+python3 -m venv venv
+source venv/bin/activate
+```
+### Step 3: Install Dependencies
+```bash
+pip install django cryptography qrcode[pil] opencv-python-headless numpy reportlab whitenoise
+```
+### Step 4: Run Database Migrations
+```bash
+python manage.py migrate
+```
+### Step 5: Start the Server
+```bash
+python manage.py runserver
+```
+Access the application at: http://127.0.0.1:8000/
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/InfiniteLoop360/django-qr-generator.git
-    cd django-qr-code
-    ```
+## 📖 Usage Guide
 
-2.  **Create and activate a virtual environment:**
-    * **macOS/Linux:**
-        ```bash
-        python3 -m venv venv
-        source venv/bin/activate
-        ```
-    * **Windows:**
-        ```bash
-        python -m venv venv
-        venv\Scripts\activate
-        ```
 
-3.  **Install the dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-    *(Note: The `Pillow` library is a dependency of `qrcode` for image generation, which is why it's in `requirements.txt`)*
+### Phase 1: Encryption (The Sender)
 
-4.  **Apply database migrations:**
-    ```bash
-    python manage.py migrate
-    ```
-
-5.  **Run the development server:**
-    ```bash
-    python manage.py runserver
-    ```
-
-6.  **Open the application:**
-    Open your web browser and navigate to `http://127.0.0.1:8000/`.
-
-## ☁️ Deployment Guide (Render)
-
-This project is configured for deployment on Render. The `media` folder (where QR codes are saved) is in `.gitignore`, so you must use a **Persistent Disk** on Render to store user-uploaded files.
-
-1.  Push your code to a GitHub repository.
-2.  On Render, create a new **"Web Service"** and connect it to your repository.
-3.  Set the following properties:
-    * **Runtime:** `Python 3` (Render will use the `runtime.txt` file).
-    * **Build Command:** `pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate`
-    * **Start Command:** `gunicorn django_qr.wsgi`
-4.  Go to the **"Disks"** section for your new service.
-5.  Click **"Add Disk"** and configure it:
+1.  Navigate to the Generate page.
+2.  Enter the Mission Title (e.g., Operation Alpha) and Confidential Data.
+3.  Set a strong Encryption Key (Password).
+4.  Click Generate Secure QR.
+5.  Output: You can download the raw QR image or the Classified PDF Report.
     * **Name:** `media`
     * **Mount Path:** `/app/media` (This *must* match the `MEDIA_ROOT` setting)
     * **Size:** 1 GB (or as needed)
-6.  Deploy! Your application will be live, and generated QR codes will be saved to the persistent disk.
 
+### Phase 2: Decryption (The Receiver)
+1.  Navigate to the Decrypt page.
+2.  Upload the QR code image OR Paste the ciphertext string.
+3.  Enter the shared Encryption Key.
+4.  Click Unlock Data.
+5.  Output: You can download the raw QR image or the Classified PDF Report.
+    * Success: The original message is displayed.
+    * Failure: "Decryption Failed: Incorrect Password."
+    * Alert: "SECURITY ALERT: Integrity Check Failed!" (If data was tampered with).
 ## 📁 Project Structure
 ```
-QR-CODE-DJANGO/
-├── django_qr/             # Main Django project configuration folder
-│   ├── __init__.py
-│   ├── asgi.py            # ASGI config for async servers
-│   ├── settings.py        # Project settings (Database, Static, Media)
-│   ├── urls.py            # Main URL routing file
-│   ├── forms.py           # Contains the QRCodeForm
-│   ├── utils.py           # Helper function to create the QR image
-│   ├── views.py           # Contains the core view (generate_qr_code)
-│   └── wsgi.py            # WSGI config for (gunicorn)
-│
-├── media/                 # (Gitignored) Where generated QR codes are saved
-│
-├── static/                # Static files (CSS, JS, images)
-│   └── css/
-│       └── style.css      # Custom application styles
-│
-├── templates/             # HTML templates
-│   ├── base.html          # Base template with Bootstrap & dark mode
-│   ├── generate_qr_code.html # Home page with the input form
-│   └── qr_result.html     # Result page with QR image and download
-│
-├── venv/                  # (Gitignored) Python virtual environment
-├── .gitignore             # Tells Git which files to ignore
-├── db.sqlite3             # Development database file
-├── manage.py              # Django's command-line utility
-├── Procfile               # Declares 'gunicorn' process for deployment
-├── requirements.txt       # Python package dependencies
-└── runtime.txt            # Specifies Python version for deployment
+secure-qr-system/
+├── django_qr/
+│   ├── forms.py          # Input validation forms
+│   ├── utils.py          # CORE LOGIC: Encryption, HMAC, PDF Gen, Logging
+│   ├── views.py          # Handles requests and connects UI to Logic
+│   ├── urls.py           # Routing
+│   └── settings.py       # Configuration
+├── media/                # Stores generated QRs and PDFs
+├── templates/            # HTML Interface
+│   ├── base.html         # Main layout with Offline CSS
+│   ├── generate_qr.html  # Encryption Interface
+│   ├── decrypt.html      # Decryption Interface
+│   └── qr_result.html    # Success Page
+├── security_audit.log    # (Created automatically) Logs all actions
+└── manage.py
 ```
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+⚠️ Security Note (Prototype)
+Salt Management: This prototype uses a static salt for key derivation to ensure portability for demonstration purposes. In a production environment, a unique, random salt would be generated per user and stored in a secure database to prevent rainbow table attacks.
+
+Key Management: The system relies on the user remembering the password. Keys are not stored on the server; if the password is lost, the data is unrecoverable.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+📜 License
+This project is developed for educational and demonstration purposes, specifically targeting Defense Technology applications.
