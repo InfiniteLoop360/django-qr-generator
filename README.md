@@ -122,11 +122,11 @@ secure-qr-system/
 ├── security_audit.log    # (Created automatically) Logs all actions
 └── manage.py
 ```
-
+---
 ⚠️ Security Note (Prototype)
 Salt Management: This prototype uses a static salt for key derivation to ensure portability for demonstration purposes. In a production environment, a unique, random salt would be generated per user and stored in a secure database to prevent rainbow table attacks.
 
 Key Management: The system relies on the user remembering the password. Keys are not stored on the server; if the password is lost, the data is unrecoverable.
-
+---
 📜 License
 This project is developed for educational and demonstration purposes, specifically targeting Defense Technology applications.
