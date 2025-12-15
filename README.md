@@ -91,9 +91,6 @@ Access the application at: http://127.0.0.1:8000/
 3.  Set a strong Encryption Key (Password).
 4.  Click Generate Secure QR.
 5.  Output: You can download the raw QR image or the Classified PDF Report.
-    * **Name:** `media`
-    * **Mount Path:** `/app/media` (This *must* match the `MEDIA_ROOT` setting)
-    * **Size:** 1 GB (or as needed)
 
 ### Phase 2: Decryption (The Receiver)
 1.  Navigate to the Decrypt page.
