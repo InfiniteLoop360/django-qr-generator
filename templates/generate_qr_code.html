@@ -1,36 +1,90 @@
 {% extends "base.html" %}
 
-{% block title %}Generate QR Code for Digital Restaurant Menu{% endblock %}
+{% block title %}Create Secure Transmission{% endblock %}
 
 {% block content %}
-<div class="mx-auto" style="max-width: 600px;">
-    <!-- ✅ Display Django messages -->
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
-    {% endif %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
 
-    <!-- ✅ Display form errors -->
-    {% if form.errors %}
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Please fix the errors below.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="card shadow-lg rounded-4 overflow-hidden">
+            <div class="card-header bg-primary text-white p-4 text-center position-relative">
+                <div class="display-1 position-absolute top-50 start-50 translate-middle" style="opacity: 0.1;">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+                <h3 class="fw-bold mb-1 position-relative z-1">Encrypted Transmitter</h3>
+                <p class="small mb-0 opacity-75 position-relative z-1">AES-128 Military Grade Encryption</p>
+            </div>
+
+            <div class="card-body p-4 p-md-5">
+                <form method="POST" action="">
+                    {% csrf_token %}
+
+                    {% if form.errors %}
+                        <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            <div>Please fix the errors below.</div>
+                        </div>
+                    {% endif %}
+
+                    <div class="form-floating mb-3">
+                        {{ form.title }}
+                        <label for="{{ form.title.id_for_label }}">
+                            <i class="bi bi-tag-fill me-1"></i> {{ form.title.label }}
+                        </label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        {{ form.data }}
+                        <label for="{{ form.data.id_for_label }}">
+                            <i class="bi bi-file-earmark-lock2-fill me-1"></i> {{ form.data.label }}
+                        </label>
+                        <div class="form-text text-end">
+                            <small><i class="bi bi-shield-check"></i> Data will be encrypted before generation</small>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-4">
+                        <hr class="flex-grow-1">
+                        <span class="px-2 text-muted small fw-bold">SECURITY CLEARANCE</span>
+                        <hr class="flex-grow-1">
+                    </div>
+
+                    <div class="input-group input-group-lg mb-4">
+                        <span class="input-group-text bg-body-tertiary">
+                            <i class="bi bi-key-fill text-warning"></i>
+                        </span>
+                        {{ form.password }}
+                    </div>
+                    <div class="form-text text-danger mt-n3 mb-4 small">
+                        * Essential: If you lose this key, the data is lost forever.
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill py-3 fw-bold shadow-sm hover-effect">
+                            <i class="bi bi-qr-code me-2"></i> Generate Secure QR
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="card-footer bg-body-tertiary text-center py-3">
+                <small class="text-muted">
+                    <i class="bi bi-lock-fill"></i> Secure Connection • No Data Logged
+                </small>
+            </div>
         </div>
-    {% endif %}
 
-    <div class="card shadow-sm p-4">
-        <h4 class="mb-3 text-center">Generate QR Code</h4>
-        <form action="{% url 'generate_qr_code' %}" method="POST" novalidate>
-            {% csrf_token %}
-            {{ form.as_p }}
-            <div class="d-grid mt-3">
-                <button type="submit" class="btn btn-primary">Generate QR Code</button>
-            </div>
-        </form>
     </div>
 </div>
+
+<style>
+    .hover-effect {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .hover-effect:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,0.15)!important;
+    }
+</style>
 {% endblock %}

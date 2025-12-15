@@ -16,12 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from . import views
+from . import views  # Imports views from the current directory
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', views.generate_qr_code, name='generate_qr_code')
+    # 1. The Home Page (Generate Secure QR)
+    path('', views.generate_qr_code, name='generate_qr_code'),
+
+    # 2. The New Decryption Portal (Add this line!)
+    path('decrypt/', views.decrypt_qr_code, name='decrypt_qr'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

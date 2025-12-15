@@ -1,120 +1,60 @@
 {% extends "base.html" %}
 
-{% block title %}QR Code Result{% endblock %}
+{% block title %}Transmission Ready{% endblock %}
 
 {% block content %}
 <div class="container text-center mt-5">
-    <!-- ✅ Success animation -->
-    <div class="checkmark-container mb-4">
-        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-            <path class="checkmark__check" fill="none" d="M14 27l7 7 17-17"/>
-        </svg>
+
+    <div class="icon-container mb-4">
+        <div class="lock-icon">🔒</div>
     </div>
 
-    <h2 class="fw-semibold mb-4">{{ title }}</h2>
+    <h2 class="fw-bold mb-2">Encrypted Transmission Ready</h2>
+    <p class="text-muted mb-4">The data for <strong>"{{ title }}"</strong> has been secured.</p>
 
-    <!-- ✅ QR Code (fade-in animation) -->
-    <img src="{{ qr_url }}" 
-         alt="QR Code" 
-         class="qr-image border border-dark rounded shadow-sm mb-4"
-         style="max-width:300px; opacity: 0; transform: translateY(10px); transition: all 0.8s ease-out;">
+    <div class="position-relative d-inline-block">
+        <img src="{{ qr_url }}" alt="Secure QR Code" class="qr-image border border-3 border-success rounded shadow-lg mb-4"
+             style="max-width:300px; padding: 10px; background: white; opacity: 0; transform: translateY(10px); transition: all 0.8s ease-out;">
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              style="opacity: 0; animation: fadeBadge 1s forwards 1.5s;">AES-128 + HMAC</span>
+    </div>
 
-    <!-- ✅ Buttons (animated later) -->
-    <div class="action-buttons d-flex flex-column align-items-center gap-2" style="opacity: 0; transform: translateY(10px); transition: all 0.8s ease-out;">
-        <a href="{{ qr_url }}" download="{{ file_name }}" class="btn btn-primary px-4">
-            ⬇️ Download QR Code
+    <div class="action-buttons d-flex flex-column align-items-center gap-3" style="opacity: 0; transform: translateY(10px); transition: all 0.8s ease-out;">
+
+        <a href="{{ pdf_url }}" target="_blank" class="btn btn-warning px-5 py-3 rounded-pill fw-bold shadow-sm">
+            <i class="bi bi-file-earmark-pdf-fill me-2"></i> Download Classified Report
         </a>
 
-        <a href="{% url 'generate_qr_code' %}" class="btn btn-secondary px-4">
-            🔄 Generate Another
-        </a>
+        <div class="d-flex gap-2">
+            <a href="{{ qr_url }}" download="{{ file_name }}" class="btn btn-dark px-4 py-2 rounded-pill">
+                ⬇️ PNG Only
+            </a>
+            <a href="{% url 'generate_qr_code' %}" class="btn btn-outline-secondary px-4 py-2 rounded-pill">
+                🔄 New Mission
+            </a>
+        </div>
 
-        <small class="text-muted mt-3">
-            Thank you for using our QR Code Generator Tool!
-        </small>
+        <div class="alert alert-light mt-3 border" role="alert" style="max-width: 400px;">
+            <small class="text-muted">
+                <strong>Log ID:</strong> Data access will be audited. <br>
+                Tampering with this QR code will trigger a security alert.
+            </small>
+        </div>
     </div>
 </div>
 
-<!-- ✅ Checkmark + Animation Styles -->
 <style>
-    .checkmark-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .checkmark {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        display: block;
-        stroke-width: 2;
-        stroke: #4bb543;
-        stroke-miterlimit: 10;
-        box-shadow: 0 0 0 2px #4bb54333;
-        animation: scale-up 0.4s ease-in-out;
-    }
-
-    .checkmark__circle {
-        stroke-dasharray: 166;
-        stroke-dashoffset: 166;
-        stroke-width: 2;
-        stroke-miterlimit: 10;
-        stroke: #4bb543;
-        fill: none;
-        animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-    }
-
-    .checkmark__check {
-        transform-origin: 50% 50%;
-        stroke-dasharray: 48;
-        stroke-dashoffset: 48;
-        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
-    }
-
-    @keyframes stroke {
-        100% {
-            stroke-dashoffset: 0;
-        }
-    }
-
-    @keyframes scale-up {
-        0% {
-            transform: scale(0.9);
-            opacity: 0;
-        }
-        100% {
-            transform: scale(1);
-            opacity: 1;
-        }
-    }
+    .lock-icon { font-size: 80px; animation: pop-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes pop-in { 0% { transform: scale(0); opacity: 0; } 80% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+    @keyframes fadeBadge { from { opacity: 0; } to { opacity: 1; } }
 </style>
 
-<!-- ✅ JS: Sequential animations -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const checkmark = document.querySelector('.checkmark');
         const qrImage = document.querySelector('.qr-image');
         const actionButtons = document.querySelector('.action-buttons');
-
-        // Step 1: fade in checkmark
-        checkmark.style.opacity = 0;
-        setTimeout(() => {
-            checkmark.style.opacity = 1;
-        }, 100);
-
-        // Step 2: fade in QR after checkmark animation
-        setTimeout(() => {
-            qrImage.style.opacity = 1;
-            qrImage.style.transform = 'translateY(0)';
-        }, 1000);
-
-        // Step 3: fade in buttons after QR appears
-        setTimeout(() => {
-            actionButtons.style.opacity = 1;
-            actionButtons.style.transform = 'translateY(0)';
-        }, 1800);
+        setTimeout(() => { qrImage.style.opacity = 1; qrImage.style.transform = 'translateY(0)'; }, 500);
+        setTimeout(() => { actionButtons.style.opacity = 1; actionButtons.style.transform = 'translateY(0)'; }, 1200);
     });
 </script>
 {% endblock %}

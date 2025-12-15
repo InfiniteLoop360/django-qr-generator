@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Decrypt Secure Transmission{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+
+        {% if result %}
+        <div class="card shadow-lg mb-4 border border-success">
+            <div class="card-body text-center p-5">
+                <div class="mb-3 text-success display-4"><i class="bi bi-unlock-fill"></i></div>
+                <h2 class="fw-bold text-success mb-3">Access Granted</h2>
+                <div class="p-3 bg-body-tertiary rounded border text-start">
+                    <small class="text-muted d-block mb-1">DECRYPTED MESSAGE:</small>
+                    <p class="lead mb-0 fw-mono" style="font-family: monospace; white-space: pre-wrap;">{{ result }}</p>
+                </div>
+                <a href="{% url 'decrypt_qr' %}" class="btn btn-outline-secondary mt-4">Decrypt Another</a>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="card shadow rounded-4 overflow-hidden">
+            <div class="card-header bg-danger text-white p-4 text-center">
+                <h3 class="fw-bold mb-0"><i class="bi bi-eye-fill me-2"></i>Decrypt Portal</h3>
+                <p class="small mb-0 opacity-75">Upload QR to view hidden intelligence</p>
+            </div>
+
+            <div class="card-body p-4">
+                {% if error %}
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <i class="bi bi-shield-x me-2"></i> {{ error }}
+                    </div>
+                {% endif %}
+
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">1. Upload Secure QR Image</label>
+                        {{ form.qr_image }}
+                    </div>
+
+                    <div class="text-center text-muted mb-3">- OR -</div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Paste Cipher Text</label>
+                        {{ form.encrypted_data }}
+                    </div>
+
+                    <hr>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">2. Enter Decryption Key</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+                            {{ form.password }}
+                        </div>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-danger btn-lg rounded-pill fw-bold">
+                            Unlock Data
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
