@@ -9,6 +9,23 @@ The **Secure Data Transmission System (SDTS)** is a specialized secure communica
 
 This tool allows officers to encrypt mission-critical intelligence into a QR code, which can only be decrypted by authorized personnel possessing the specific decryption key. It includes military-grade tamper detection to prevent "Man-in-the-Middle" attacks.
 
+<img width="1557" height="913" alt="Screenshot 2025-12-15 113221" src="https://github.com/user-attachments/assets/04652d55-3e64-4974-9341-ca7b1623913c" />
+
+<img width="1570" height="909" alt="Screenshot 2025-12-15 113239" src="https://github.com/user-attachments/assets/536e583d-a14e-425f-b1d2-f47f76c4dde8" />
+
+<img width="1522" height="912" alt="Screenshot 2025-12-15 114928" src="https://github.com/user-attachments/assets/94e8bc4e-8156-4eff-a118-02b205d1731f" />
+
+<img width="1362" height="908" alt="Screenshot 2025-12-15 114956" src="https://github.com/user-attachments/assets/495f983a-ad46-4b78-9dca-06b01886a126" />
+
+<img width="1400" height="909" alt="Screenshot 2025-12-15 115019" src="https://github.com/user-attachments/assets/c276eec0-2808-4dde-b340-352e83a7454d" />
+
+<img width="1386" height="870" alt="Screenshot 2025-12-15 121541" src="https://github.com/user-attachments/assets/89aaf654-07ba-4da2-9696-29c22502a7f7" />
+
+<img width="1375" height="896" alt="Screenshot 2025-12-15 121552" src="https://github.com/user-attachments/assets/c329aaa1-cbf7-4478-ba15-4fee995d4354" />
+
+<img width="1256" height="905" alt="Screenshot 2025-12-15 121632" src="https://github.com/user-attachments/assets/6af7bdf1-286d-44c5-8a7c-127cfe1b7e6a" />
+
+
 ## 🚀 Key Features
 
 ### 1. Military-Grade Confidentiality (AES-128)
